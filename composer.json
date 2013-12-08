@@ -1,0 +1,26 @@
+{
+    "name": "Webcode/PhpBBBridge",
+    "description": "A bridge between phpBB3 and laravel 4",
+    "keywords": ["phpbb", "phpbb3", "bridge", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "webcode",
+            "email": "rastone@webcode.io"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/models",
+            "src/libraries"
+        ],
+        "psr-0": {
+            "Webcode\\PhpBBBridge": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
