@@ -1,5 +1,5 @@
 {
-    "name": "Webcode/PhpBBBridge",
+    "name": "webcode/phpbb-bridge",
     "description": "A bridge between phpBB3 and laravel 4",
     "keywords": ["phpbb", "phpbb3", "bridge", "laravel"],
     "license": "MIT",
