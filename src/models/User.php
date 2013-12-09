@@ -1,8 +1,8 @@
 <?php
 
-namespace Webcode\PhpBBBridge\Models;
+namespace Webcode\BridgePhpBB\Models;
 
-use Webcode\PhpBBBridge\Libraries\WebcodeException;
+use Webcode\BridgePhpBB\Libraries\WebcodeException;
 
 class User extends \Eloquent {
 
@@ -16,18 +16,18 @@ class User extends \Eloquent {
     public $timestamps = false;
 
     public function __construct() {
-        $this->table = \Config::get('phpbbbridge::database.phpbbtables.user_table');
-        $this->groupTable = \Config::get('phpbbbridge::database.phpbbtables.group_table');
-        $this->userGroupPivotTable = \Config::get('phpbbbridge::database.phpbbtables.user_group_pivot_table');
+        $this->table = \Config::get('phpbb-bridge::database.phpbbtables.user_table');
+        $this->groupTable = \Config::get('phpbb-bridge::database.phpbbtables.group_table');
+        $this->userGroupPivotTable = \Config::get('phpbb-bridge::database.phpbbtables.user_group_pivot_table');
         parent::__construct();
     }
 
     public function getGroups() {
-        return $this->belongsToMany('Webcode\PhpBBBridge\Models\Group', $this->userGroupPivotTable);
+        return $this->belongsToMany('Webcode\BridgePhpBB\Models\Group', $this->userGroupPivotTable);
     }
 
     public function getTopics() {
-        return $this->hasMany('Webcode\PhpBBBridge\Models\Topic', 'topic_poster');
+        return $this->hasMany('Webcode\BridgePhpBB\Models\Topic', 'topic_poster');
     }
 
 //PhpBB Specific functions

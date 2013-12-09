@@ -1,8 +1,8 @@
 <?php
 
-namespace Webcode\PhpBBBridge\Models;
+namespace Webcode\BridgePhpBB\Models;
 
-use Webcode\PhpBBBridge\Libraries\WebcodeException;
+use Webcode\BridgePhpBB\Libraries\WebcodeException;
 
 class Group extends \Eloquent {
 
@@ -13,13 +13,13 @@ class Group extends \Eloquent {
     public $timestamps = false;
 
     public function __construct() {
-        $this->table = \Config::get('phpbbbridge::database.phpbbtables.group_table');
-        $this->userGroupPivotTable = \Config::get('phpbbbridge::database.phpbbtables.user_group_pivot_table');
+        $this->table = \Config::get('phpbb-bridge::database.phpbbtables.group_table');
+        $this->userGroupPivotTable = \Config::get('phpbb-bridge::database.phpbbtables.user_group_pivot_table');
         parent::__construct();
     }
 
     public function getUsers() {
-        return $this->belongsToMany('Webcode\PhpBBBridge\Models\User', $this->userGroupPivotTable);
+        return $this->belongsToMany('Webcode\BridgePhpBB\Models\User', $this->userGroupPivotTable);
     }
 
 }

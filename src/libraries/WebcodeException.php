@@ -1,12 +1,12 @@
 <?php
 
-namespace Webcode\PhpBBBridge\Libraries;
+namespace Webcode\BridgePhpBB\Libraries;
 
 class WebcodeException extends \Exception {
 
     public function __construct($message, $code = 0, Exception $previous = null) {
         parent::__construct($message, $code, $previous);
-        if(\Config::get("phpbbbridge:reportDataToDeveloper")) {
+        if(\Config::get("phpbb-bridge:reportDataToDeveloper")) {
             //TODO
         }
     }

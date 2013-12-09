@@ -1,8 +1,8 @@
 <?php
 
-namespace Webcode\PhpBBBridge\Models;
+namespace Webcode\BridgePhpBB\Models;
 
-use Webcode\PhpBBBridge\Libraries\WebcodeException;
+use Webcode\BridgePhpBB\Libraries\WebcodeException;
 
 class Topic extends \Eloquent {
 
@@ -12,12 +12,12 @@ class Topic extends \Eloquent {
     public $timestamps = false;
 
     public function __construct() {
-        $this->table = \Config::get('phpbbbridge::database.phpbbtables.topics_table');
+        $this->table = \Config::get('phpbb-bridge::database.phpbbtables.topics_table');
         parent::__construct();
     }
 
     public function getUser() {
-        return $this->belongsTo('Webcode\PhpBBBridge\Models\User', 'topic_poster');
+        return $this->belongsTo('Webcode\BridgePhpBB\Models\User', 'topic_poster');
     }
 
 }
