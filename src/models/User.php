@@ -12,7 +12,6 @@ class User extends \Eloquent {
     protected $hidden = array('user_password');
     protected $groupTable;
     protected $userGroupPivotTable;
-    
     public $timestamps = false;
 
     public function __construct() {
@@ -28,6 +27,22 @@ class User extends \Eloquent {
 
     public function getTopics() {
         return $this->hasMany('Webcode\BridgePhpBB\Models\Topic', 'topic_poster');
+    }
+
+    public function getUserID() {
+        return $this->user_id;
+    }
+
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+
+    public function setPassword($password) {
+        $this->user_password = $password;
+    }
+
+    public function setEmail($email) {
+        $this->user_email = $email;
     }
 
 //PhpBB Specific functions
@@ -77,7 +92,7 @@ class User extends \Eloquent {
         $this->getGroups()->sync($phpBBGroupIDs);
     }
 
-    public function setUsername($username) {
+    public function changeUsername($username) {
         if (!isset($username)) {
             throw new WebcodeException("Username required.");
         } else {
@@ -86,9 +101,9 @@ class User extends \Eloquent {
             if (empty($this->username_clean)) {
                 throw new WebcodeException("Invalid username.");
             }
-            foreach($this->getTopics()->get() as $oTopic) {
+            foreach ($this->getTopics()->get() as $oTopic) {
                 $oTopic->topic_first_poster_name = $this->username;
-                if($oTopic->topic_last_poster_id == $this->user_id) {
+                if ($oTopic->topic_last_poster_id == $this->user_id) {
                     $oTopic->topic_last_poster_name = $this->username;
                 }
                 $oTopic->save();
