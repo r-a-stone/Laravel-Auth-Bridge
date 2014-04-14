@@ -25,7 +25,7 @@ $ composer update
 ```
 php artisan config:publish webcode/bridgebb
 ```
-####Update app/config/webcode/bridgebb/database.php
+####Update app/config/packages/webcode/bridgebb/database.php
 ```
 return array(
     'connections' => array(
