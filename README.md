@@ -9,7 +9,12 @@ Allows the laravel 4 developer to edit/create phpbb3 forum accounts and their gr
 ```
 php artisan config:publish webcode/bridgebb
 ```
-
+####Add to your composer.json
+```
+"require": {
+    "webcode/phpbb-bridge": "dev-master"
+}
+```
 ####Add to app.php
 ```
 'providers' => array(
