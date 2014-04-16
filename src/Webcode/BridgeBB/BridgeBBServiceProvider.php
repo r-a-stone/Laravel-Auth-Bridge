@@ -10,6 +10,7 @@ class BridgeBBServiceProvider extends ServiceProvider {
 
     public function boot() {
         $this->package('webcode/bridgebb', 'bridgebb');
+        include __DIR__ . '/../../routes.php';
     }
 
     public function register() {
@@ -17,7 +18,6 @@ class BridgeBBServiceProvider extends ServiceProvider {
         $app['config']->set('database.connections') = array_merge(
                 $app['config']->get('database.connections'), $app['config']->get('bridgebb::database.connections')
         );
-       
     }
 
     public function provides() {
