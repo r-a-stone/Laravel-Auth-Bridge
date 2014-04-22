@@ -4,6 +4,7 @@ if (!defined('IN_PHPBB')) {
     exit;
 }
 define(LARAVEL_URL, 'http://www.example.com/');
+define(BRIDGEBB_API_KEY, "yoursecretapikey");
 
 function init_bridgebb() {
     //TODO: Setup this auth service
@@ -33,11 +34,12 @@ function login_bridgebb($username, $password) {
         );
     }
 
-    $result = fopen(LARAVEL_URL . 'bridgebb-auth-api/' . $username . '/' . $password);
+    $oBridgeBBRequest = fopen(LARAVEL_URL . 'bridgebb-api/auth/' . BRIDGEBB_API_KEY . '/' . $username . '/' . $password);
 
-    if ($result <> false) {
+    if ($oBridgeBBRequest <> false) {
         //TODO: Check bridgebb response
-        if (1 == 1) {
+        $oBridgeBBResponse = json_decode($oBridgeBBRequest);
+        if ($oBridgeBBResponse['response'] == "error") {
             return array(
                 'status' => LOGIN_ERROR_USERNAME,
                 'error_msg' => 'LOGIN_ERROR_USERNAME',
@@ -69,10 +71,13 @@ function login_bridgebb($username, $password) {
                 }
             } else {
                 // this is the user's first login so create an empty profile
+                $oPhpBBUser = user_row_bridgebb($username, sha1($password));
+                //$oLaravelUser = $oBridgeBBResponse['data'];
+                //$oBridgeBBRequest = fopen(LARAVEL_URL . 'bridgebb-api/register/' . BRIDGEBB_API_KEY . '/' . $oLaravelUser['id'] . '/' . $oPhpBBUser['']);
                 return array(
                     'status' => LOGIN_SUCCESS_CREATE_PROFILE,
                     'error_msg' => false,
-                    'user_row' => user_row_bridgebb($username, sha1($password)),
+                    'user_row' => $oPhpBBUser,
                 );
             }
         }
