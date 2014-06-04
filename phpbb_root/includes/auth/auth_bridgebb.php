@@ -6,18 +6,34 @@ if (!defined('IN_PHPBB')) {
 define(LARAVEL_URL, 'http://www.example.com/');
 define(BRIDGEBB_API_KEY, "yoursecretapikey");
 
-function init_bridgebb() {
-    //TODO: Setup this auth service
+class BridgeBBSQL {
+
+    public static function getUserByUsername($username) {
+        global $db;
+        $sql = 'SELECT user_id, username, user_password, user_passchg, user_email, user_type
+            FROM ' . USERS_TABLE . "
+            WHERE username = '" . $db->sql_escape($username) . "'";
+        $result = $db->sql_query($sql);
+        $row = $db->sql_fetchrow($result);
+        $db->sql_freeresult($result);
+        return $row;
+    }
+
+    public static function getDefaultGroupID() {
+        global $db;
+        $sql = 'SELECT group_id
+        FROM ' . GROUPS_TABLE . "
+        WHERE group_name = '" . $db->sql_escape('REGISTERED') . "'
+            AND group_type = " . GROUP_SPECIAL;
+        $result = $db->sql_query($sql);
+        $row = $db->sql_fetchrow($result);
+        $db->sql_freeresult($result);
+        return $row;
+    }
+
 }
 
-/*
-  function autologin_bridgebb() {
-  //TODO
-  }
- */
-
 function login_bridgebb($username, $password) {
-    global $db;
     if (!$password) {
         return array(
             'status' => LOGIN_ERROR_PASSWORD,
@@ -34,7 +50,7 @@ function login_bridgebb($username, $password) {
         );
     }
 
-    $oBridgeBBRequest = fopen(LARAVEL_URL . 'bridgebb-api/auth/' . BRIDGEBB_API_KEY . '/' . $username . '/' . $password);
+    $oBridgeBBRequest = fopen(LARAVEL_URL . 'bridgebb/login/' . BRIDGEBB_API_KEY . '/' . $username . '/' . $password);
 
     if ($oBridgeBBRequest <> false) {
         //TODO: Check bridgebb response
@@ -46,13 +62,7 @@ function login_bridgebb($username, $password) {
                 'user_row' => array('user_id' => ANONYMOUS),
             );
         } else {
-            $sql = 'SELECT user_id, username, user_password, user_passchg, user_email, user_type
-            FROM ' . USERS_TABLE . "
-            WHERE username = '" . $db->sql_escape($username) . "'";
-            $result = $db->sql_query($sql);
-            $row = $db->sql_fetchrow($result);
-            $db->sql_freeresult($result);
-
+            $row = BridgeBBSQL::getUserByUsername($username);
             if ($row) {
                 // User inactive
                 if ($row['user_type'] == USER_INACTIVE || $row['user_type'] == USER_IGNORE) {
@@ -72,8 +82,6 @@ function login_bridgebb($username, $password) {
             } else {
                 // this is the user's first login so create an empty profile
                 $oPhpBBUser = user_row_bridgebb($username, sha1($password));
-                //$oLaravelUser = $oBridgeBBResponse['data'];
-                //$oBridgeBBRequest = fopen(LARAVEL_URL . 'bridgebb-api/register/' . BRIDGEBB_API_KEY . '/' . $oLaravelUser['id'] . '/' . $oPhpBBUser['']);
                 return array(
                     'status' => LOGIN_SUCCESS_CREATE_PROFILE,
                     'error_msg' => false,
@@ -91,16 +99,9 @@ function login_bridgebb($username, $password) {
 }
 
 function user_row_bridgebb($username, $password) {
-    global $db, $config, $user;
+    global $user;
     // first retrieve default group id
-    $sql = 'SELECT group_id
-        FROM ' . GROUPS_TABLE . "
-        WHERE group_name = '" . $db->sql_escape('REGISTERED') . "'
-            AND group_type = " . GROUP_SPECIAL;
-    $result = $db->sql_query($sql);
-    $row = $db->sql_fetchrow($result);
-    $db->sql_freeresult($result);
-
+    $row = BridgeBBSQL::getDefaultGroupID();
     if (!$row) {
         trigger_error('NO_GROUP');
     }
@@ -116,7 +117,6 @@ function user_row_bridgebb($username, $password) {
     );
 }
 
-/*
 function logout_bridgebb() {
     //TODO
 }
@@ -124,5 +124,11 @@ function logout_bridgebb() {
 function validate_session_bridgebb() {
     //TODO
 }
- * 
- */
+
+function init_bridgebb() {
+    //TODO: Setup this auth service
+}
+
+function autologin_bridgebb() {
+    //TODO
+}

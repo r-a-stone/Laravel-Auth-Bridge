@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'apikey' => "yoursecretapikey",
+    'bridgebb-apikey' => 'secretkey',
 );

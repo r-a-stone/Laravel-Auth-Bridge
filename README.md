@@ -1,7 +1,7 @@
 BridgeBB
 ===========
 
-Allows the laravel 4 developer to edit/create phpbb3 forum accounts and their group memberships.
+Allows phpBB3 to use the Laravel Auth driver to create/authenticate accounts.
 
 ###Installation:
 
@@ -11,62 +11,31 @@ Allows the laravel 4 developer to edit/create phpbb3 forum accounts and their gr
     "webcode/phpbb-bridge": "dev-master"
 }
 ```
+
 ####Run composer update
 ```
 $ composer update
 ```
-####Add to app.php
+
+####Register the BridgeBB Service Provider by adding it to your project's providers array in app.php
 ```
 'providers' => array(
     'Webcode\BridgeBB\BridgeBBServiceProvider'
 );
 ```
-####Publish BridgeBB config
+
+####Create a secret api key in config/webcode/bridgebb/api.php
 ```
-php artisan config:publish webcode/bridgebb
-```
-####Update app/config/packages/webcode/bridgebb/database.php
-```
-return array(
-    'connections' => array(
-        'phpbbDB' => array(
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => '',
-            'username' => '',
-            'password' => '',
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => 'phpbb_',
-        ),
-    )
-);
+'bridgebb-apikey' => 'secretkey'
 ```
 
-###Usage:
-
-####Registration:
+####Update the column names used for the Laravel Auth driver config/webcode/bridgebb/auth.php
 ```
-try {
-    $user = new Webcode\BridgeBB\User();
-    $user->register("testuser", "testpassword", "testuser@example.com");
-    $phpBBUserID = $user->user_id;
-}
-catch(Webcode\BridgeBB\BridgeBBException $ex) {
-    //Handle exceptions
-}
+'username-column' => 'username',
+'password-column' => 'password'
 ```
 
-####Update User:
-```
-try {
-    $user = Webcode\BridgeBB\User::find(1);
-    $user->updateUsername("newtestusername");
-    $user->setGroups(array(1,7,9,11));
-    $user->setPrimaryGroup(7);
-    $user->updatePassword("mynewpassword");
-}
-catch(Webcode\BridgeBB\BridgeBBException $ex) {
-    //Handle exceptions
-}
-```
+####Copy all files in the phpbb_root directory to your phpBB install
+####Login to the phpBB admin panel and set bridgebb as the authentication module
+
+Now all logins will be checked against the Laravel Auth driver and duplicated in the phpBB database.

@@ -1,27 +1,45 @@
-<?php
-
-namespace Webcode\BridgeBB;
+<?php namespace Webcode\Bridgebb;
 
 use Illuminate\Support\ServiceProvider;
 
-class BridgeBBServiceProvider extends ServiceProvider {
+class BridgebbServiceProvider extends ServiceProvider {
 
-    protected $defer = false;
+	/**
+	 * Indicates if loading of the provider is deferred.
+	 *
+	 * @var bool
+	 */
+	protected $defer = false;
 
-    public function boot() {
-        $this->package('webcode/bridgebb', 'bridgebb');
-        include __DIR__ . '/../../routes.php';
-    }
+	/**
+	 * Bootstrap the application events.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->package('webcode/bridgebb');
+                include __DIR__.'/../../routes.php';
+	}
 
-    public function register() {
-        $app = $this->app;
-        $app['config']->set('database.connections') = array_merge(
-                $app['config']->get('database.connections'), $app['config']->get('bridgebb::database.connections')
-        );
-    }
+	/**
+	 * Register the service provider.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		//
+	}
 
-    public function provides() {
-        return array();
-    }
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return array();
+	}
 
 }
