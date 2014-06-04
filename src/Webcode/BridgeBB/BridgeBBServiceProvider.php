@@ -18,7 +18,7 @@ class BridgebbServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('webcode/bridgebb');
+		$this->package('webcode/bridgebb', 'bridgebb');
                 include __DIR__.'/../../routes.php';
 	}
 
