@@ -16,13 +16,13 @@ class Bridgebb {
         $request = fopen(LARAVEL_URL . 'bridgebb/login/' . BRIDGEBB_API_KEY . '/' . $username . '/' . $password);
         $oResponse = json_decode($request);
         if ($oResponse['response'] === 'success') {
-            self::_handleAuthSuccess($username);
+            self::_handleAuthSuccess($username, $password);
         } else {
             return self::_error(LOGIN_ERROR_USERNAME, 'LOGIN_ERROR_USERNAME');
         }
     }
 
-    private static function _handleAuthSuccess($username) {
+    private static function _handleAuthSuccess($username, $password) {
         $row = BridgebbSQL::getUserByUsername($username);
         // Does User exist?
         if ($row) {
