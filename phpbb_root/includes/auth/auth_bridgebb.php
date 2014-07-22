@@ -3,8 +3,8 @@
 if (!defined('IN_PHPBB')) {
     exit;
 }
-define(LARAVEL_URL, 'http://www.example.com/');
-define(BRIDGEBB_API_KEY, "yoursecretapikey");
+define('LARAVEL_URL', 'http://www.example.com/');
+define('BRIDGEBB_API_KEY', "yoursecretapikey");
 
 require __DIR__ . '/bridgebb/BridgebbSQL.php';
 require __DIR__ . '/bridgebb/Bridgebb.php';
