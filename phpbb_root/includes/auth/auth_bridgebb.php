@@ -3,11 +3,11 @@
 if (!defined('IN_PHPBB')) {
     exit;
 }
-define(LARAVEL_URL, 'http://www.example.com/');
-define(BRIDGEBB_API_KEY, "yoursecretapikey");
+define('LARAVEL_URL', 'http://www.example.com/');
+define('BRIDGEBB_API_KEY', "yoursecretapikey");
 
-require __DIR__ . '/bridgebb/BridgebbSQL.php';
-require __DIR__ . '/bridgebb/Bridgebb.php';
+require __DIR__ . '/bridgebb/BridgeBBDBAL.php';
+require __DIR__ . '/bridgebb/BridgeBB.php';
 
 function login_bridgebb($username, $password) {
     return Bridgebb::login($username, $password);

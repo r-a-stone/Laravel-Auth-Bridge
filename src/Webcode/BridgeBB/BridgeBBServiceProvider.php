@@ -1,8 +1,8 @@
-<?php namespace Webcode\Bridgebb;
+<?php namespace Webcode\BridgeBB;
 
 use Illuminate\Support\ServiceProvider;
 
-class BridgebbServiceProvider extends ServiceProvider {
+class BridgeBBServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.

@@ -1,3 +1,3 @@
 <?php
 
-Route::controller('/bridgebb', 'Webcode\Bridgebb\Controllers\BridgebbController');
+Route::controller('/bridgebb', 'Webcode\BridgeBB\Controllers\BridgeBBController');

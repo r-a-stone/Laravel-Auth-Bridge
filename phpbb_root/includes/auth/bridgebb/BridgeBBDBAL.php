@@ -1,6 +1,6 @@
 <?php
 
-class BridgebbSQL {
+class BridgeBBDBAL {
 
     public static function getUserByUsername($username) {
         global $db;
