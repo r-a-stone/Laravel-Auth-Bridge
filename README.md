@@ -8,7 +8,7 @@ Allows phpBB3 to use the Laravel Auth driver to create/authenticate accounts.
 ####Add to your composer.json
 ```
 "require": {
-    "webcode/bridgebb": "dev-master"
+    "webcode/phpbb-bridge": "1.0.*@dev"
 }
 ```
 
