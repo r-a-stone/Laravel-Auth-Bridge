@@ -13,7 +13,7 @@ class BridgeBB {
     }
 
     private static function _apiValidate($username, $password) {
-        $request = fopen(LARAVEL_URL . 'bridgebb/login/' . BRIDGEBB_API_KEY . '/' . $username . '/' . $password);
+        $request = fopen(LARAVEL_URL . 'bridgebb/login/' . BRIDGEBB_API_KEY . '/' . $username . '/' . $password, "r");
         $oResponse = json_decode($request);
         if ($oResponse['response'] === 'success') {
             //TODO: Consume returned user account information like email
