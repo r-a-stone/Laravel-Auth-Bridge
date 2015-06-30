@@ -1,7 +1,7 @@
 BridgeBB
 ===========
 
-Allows phpBB3 to use the Laravel Auth driver to create/authenticate accounts.
+Allows phpBB3.0 to use the Laravel4 Auth driver to create/authenticate accounts.
 
 ###Installation:
 

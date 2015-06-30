@@ -16,7 +16,10 @@ function login_bridgebb($username, $password) {
 function user_row_bridgebb($username, $password) {
     return Bridgebb::createUserRow($username, $password);
 }
-
+/**
+ * TODO
+ */
+/*
 function logout_bridgebb() {
     //TODO
 }
@@ -32,3 +35,4 @@ function init_bridgebb() {
 function autologin_bridgebb() {
     //TODO
 }
+*/
